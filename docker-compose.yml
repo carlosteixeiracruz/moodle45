@@ -2,19 +2,22 @@ version: '3'
 
 services:
   web:
-    build: .
+    image: php:8.2-apache
+    container_name: moodle45_web
     ports:
       - "8080:80"
     volumes:
-      - ./moodle:/var/www/html
-      - ./moodledata:/var/moodledata45
+      - moodle-data:/var/www/html
+      - ./wait-for-db.sh:/wait-for-db.sh  # Adicionando o script
     environment:
       - PHP_MEMORY_LIMIT=512M
-    networks:
-      - moodlenetwork
+    depends_on:
+      - db
+    entrypoint: ["sh", "/wait-for-db.sh", "apache2-foreground"]  # Espera pelo banco de dados antes de iniciar o Apache
 
   db:
     image: mariadb:10.6.7
+    container_name: moodle45_db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: moodle45
@@ -24,12 +27,7 @@ services:
       - mariadb-data:/var/lib/mysql
     ports:
       - "3307:3306"
-    networks:
-      - moodlenetwork
 
 volumes:
+  moodle-data:
   mariadb-data:
-
-networks:
-  moodlenetwork:
- 

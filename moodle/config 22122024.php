@@ -6,20 +6,20 @@ $CFG = new stdClass();
 
 $CFG->dbtype    = 'mariadb';
 $CFG->dblibrary = 'native';
-$CFG->dbhost    = 'localhost';
+$CFG->dbhost    = 'db';
 $CFG->dbname    = 'moodle45';
 $CFG->dbuser    = 'root';
 $CFG->dbpass    = 'rootpassword';
 $CFG->prefix    = 'mdl_';
 $CFG->dboptions = array (
   'dbpersist' => 0,
-  'dbport' => 3306,
+  'dbport' => '',
   'dbsocket' => '',
-  'dbcollation' => 'utf8mb4_unicode_ci',
+  'dbcollation' => 'utf8mb4_general_ci',
 );
 
-$CFG->wwwroot   = 'http://localhost';
-$CFG->dataroot  = '/var/www/html/moodle45/moodledata45';
+$CFG->wwwroot   = 'http://localhost:8080';
+$CFG->dataroot  = '/var/moodledata45';
 $CFG->admin     = 'admin';
 
 $CFG->directorypermissions = 0777;
