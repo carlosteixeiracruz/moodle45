@@ -13,5 +13,6 @@ Route::get('/cadastro', function () {
     return view('cadastro');
 });
 
-// Rota para processar o login do Moodle
+// Em routes/web.php
 Route::post('/login', [MoodleController::class, 'login'])->name('login.moodle');
+
