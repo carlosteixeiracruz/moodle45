@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Mensagem;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,10 +46,16 @@ class APILoginMensagemController extends Controller
             'remember_token' => $token,
         ]);
 
+        $parametro = "Laravel";
+        $resultado = minhaFuncao($parametro);
+
         // Retorna o token junto com uma mensagem de sucesso
         return response()->json([
-            'message' => 'Login bem-sucedido',
-            'token' => $token,
+            'message'       => 'Login bem-sucedido AA',
+            'token'         => $token,
+            'resultado'    => $resultado
         ]);
+
+        
     }
 }

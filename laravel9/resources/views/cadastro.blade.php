@@ -63,17 +63,42 @@
             background-color: #077a7a;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="login-container">
         <h1>CADASTRO SISTEMA MENSAGEM</h1>
-        <form action="{{ route('login.moodle') }}" method="POST">
+        <form id="loginForm">
             @csrf
-            <input type="text" name="username" placeholder="Usuário" required>
-            <input type="password" name="password" placeholder="Senha" required>
+            <input type="text" id="username" name="username" placeholder="Usuário" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
             <button type="submit">Entrar</button>
         </form>
     </div>
+
+    <script>
+        $('#loginForm').submit(function(e) {
+            e.preventDefault(); // Previne o envio tradicional do formulário
+
+            let username = $('#username').val();
+            let password = $('#password').val();
+
+            $.ajax({
+                url: "{{ url('api/loginMensagem') }}", // URL da rota API
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    email: username, // Aqui, "email" deve corresponder à entrada esperada pela API
+                    password: password
+                },
+                success: function(response) {
+                    alert("Login bem-sucedido! Token: " + response.token);
+                },
+                error: function(xhr, status, error) {
+                    alert("Erro ao tentar fazer login: " + xhr.responseJSON.error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
